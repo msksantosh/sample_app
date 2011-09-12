@@ -20,10 +20,11 @@ class User < ActiveRecord::Base
   end
 
   class << self
-  def authenticate(email, submitted_passsword)
-    user = find_by_email
-    return nil if user.nil?
-    return user ifuser.has_password?(submitted_password)
+    def authenticate(email, submitted_passsword)
+      user = find_by_email
+      return nil if user.nil?
+      return user ifuser.has_password?(submitted_password)
+    end
   end
 
   private
@@ -43,7 +44,6 @@ class User < ActiveRecord::Base
 
   def secure_hash(string)
     Digest::SHA2.hexdigest(string)
-  end
   end
 end
 
