@@ -2,13 +2,13 @@
   <tr>
     <td class="main">
     <h1>
-     <%= gravator_for @user %>
+     <%= gravatar_for @user %>
      <%= @user.name %>
 </h1>
     </td>
     <td class="sidebar round">
       <strong>Name</strong> <%= @user.name %><br />
-      <strong>URL</strong> <%= LINK TO user_path(@user),
+      <strong>URL</strong> <%= link_to user_path(@user),
                                        user_path(@user) %>
     </td>
   </tr>
