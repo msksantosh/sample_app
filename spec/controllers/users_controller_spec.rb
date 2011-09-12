@@ -52,4 +52,54 @@ render_views
       response.should have_selector('title', :content => "Sign up")
     end
   end
+
+  describe "POST 'create'" do
+
+    describe "failure" do
+      before(:each) do
+        @attr = { :name => "",    :email => "",
+                  :password =>"", :password_confirmation => ""}
+      end
+
+it "should have the right title"
+post :create, :user => @attr
+response.should have_selector('title', :content => "Sign up")
+
+it "should render the 'new' page"
+post :create, :user => @attr
+response.should render_template('new')
+
+        it "should not create a user" do
+        lambda do
+          post :create, :user => @attr
+        end.should_not change(User, :count)
+    end
+  end
+
+    describe "success" do
+
+      before(:each) do
+        @attr = { :name => "Santosh",
+                  :email => "msksantosh@gmail.com",
+                  :password => "abcdefgh",
+                  :password_confirmation => "abcdefgh"}
+      end
+
+      it "should create a user" do
+        lambda do
+          post :create, :user => @attr
+        end.should change(User, :count).by(1)
+        end
+
+      it "should redirect to the user show page" do
+        post :create, :user => @attr
+        response.should redirect_to(user_path(assigns(:user)))
+      end
+
+      it "should have a welcome message" do
+        post :create, :user => @attr
+        flash[:success].should =~ /welcome to the sample app/i
+      end
+    end
+end
 end
