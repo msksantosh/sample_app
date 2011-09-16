@@ -42,7 +42,7 @@ render_views
       end
 
       it "should paginate users" do
-        get :indes
+        get :index
         response.should have_selector('div.pagination')
         response.should have_selector('span.disabled', :content => "Previous")
         response.should have_selector('a', :href => "/users?page=2", :content => "2")
@@ -101,6 +101,27 @@ render_views
       get :show, :id => user
       response.should have_selector('td>a', :content => user_path(@user),
                                             :href    => user_path(@user))
+    end
+
+    it "should show the users microposts" do
+      mp1 = Factory(:micropost, :user => @user, :content => "haisup")
+      mp2 = Factory(:micropost, :user => @user, :content => "wassup")
+      get :show, :id => @user
+      response.should have_selector('span.content', :content => mp1.content)
+      response.should have_selector('span.content', :content => mp2.content)
+    end
+
+    it "should paginate microposts" do
+      35.times { Factory(:micropost, :user => @user, :content => "sup")}
+      get :show, :id => @user
+      response.should have_selector('div.pagination')
+    end
+
+    it "should display the micropost count" do
+     10.times { Factory(:micropost, :user => @user, :content => "sup")}
+     get :show, :id => @user
+     response.should have_selector('td.sidebar,
+                                              :content => @user.microposts.count.to_s')
     end
   end
 
