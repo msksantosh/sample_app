@@ -22,7 +22,7 @@ class User < ActiveRecord::Base
                            :foreign_key => "follower_id"
   has_many :reverse_relationships, :dependent => :destroy,
                                    :foreign_key => "follwed_id",
-                                   :clas_name => "Relationship"
+                                   :class_name => "Relationship"
   has_many :following, :through => :relationships, :source => :followed
   has_many :followers, :through => :reverse_relationships,
                        :source =>  :follower
