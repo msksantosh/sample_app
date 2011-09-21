@@ -1,18 +1,8 @@
-# == Schema Information
-#
-# Table name: relationships
-#
-#  id          :integer         not null, primary key
-#  follower_id :integer
-#  followed_id :integer
-#  created_at  :datetime
-#  updated_at  :datetime
-#
-
 require 'spec_helper'
 
 describe Relationship do
-    before(:each) do
+
+  before(:each) do
     @follower = Factory(:user)
     @followed = Factory(:user, :email => Factory.next(:email))
 
@@ -41,7 +31,7 @@ describe Relationship do
       @relationship.should respond_to(:followed)
     end
 
-    it "should have the right followed" do
+    it "should have the right followed user" do
       @relationship.followed.should == @followed
     end
   end
@@ -52,11 +42,8 @@ describe Relationship do
       Relationship.new(@attr).should_not be_valid
     end
 
-   it "should require a follower id" do
+    it "should require a followed id" do
       @follower.relationships.build.should_not be_valid
     end
-
   end
 end
-
-

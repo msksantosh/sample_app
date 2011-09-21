@@ -1,11 +1,11 @@
-<% @user ||= current_user%>
+<% @user ||= current_user %>
 <div class="stats">
   <table summary="User stats">
     <tr>
       <td>
-        <a href="<%= following_user_path(@user) %> ">
+        <a href="<%= following_user_path(@user) %>">
           <span id="following" class="stat">
-           <%= @user.following.count %> following
+            <%= @user.following.count %> following
           </span>
         </a>
       </td>

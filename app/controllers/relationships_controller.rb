@@ -2,7 +2,6 @@ class RelationshipsController < ApplicationController
   before_filter :authenticate
 
   def create
-    raise params.inspect
     @user = User.find(params[:relationship][:followed_id])
     current_user.follow!(@user)
     respond_to do |format|
